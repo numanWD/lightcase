@@ -1,5 +1,5 @@
 /*
- * Lightcase - jQuery Plugin
+ * Overbox - jQuery Plugin
  * The smart and flexible Lightbox Plugin.
  *
  * @author		Cornel Boppart <cornel@bopp-art.com>
@@ -9,7 +9,7 @@
  */
 
 ;(function ($) {
-	window.lightcase = {
+	window.overbox = {
 		cache : {},
 
 		support : {},
@@ -34,7 +34,7 @@
 			return this.each(function () {
 				$(this).unbind('click').click(function (event) {
 					event.preventDefault();
-					$(this).lightcase('start', options);
+					$(this).overbox('start', options);
 				});
 			});
 		},
@@ -46,9 +46,9 @@
 		 * @return	{void}
 		 */
 		start : function (options) {
-			lightcase.settings = $.extend(true, {
-				idPrefix : 'lightcase-',
-				classPrefix : 'lightcase-',
+			overbox.settings = $.extend(true, {
+				idPrefix : 'overbox-',
+				classPrefix : 'overbox-',
 				transition : 'elastic',
 				transitionIn : null,
 				transitionOut : null,
@@ -119,35 +119,35 @@
 					'inline' : '#'
 				},
 				errorMessage : function () {
-					return '<p class="' + lightcase.settings.classPrefix + 'error">' + lightcase.labels['errorMessage'] + '</p>';
+					return '<p class="' + overbox.settings.classPrefix + 'error">' + overbox.labels['errorMessage'] + '</p>';
 				},
 				markup : function () {
 					$('body').append(
-						$overlay = $('<div id="' + lightcase.settings.idPrefix + 'overlay"></div>'),
-						$loading = $('<div id="' + lightcase.settings.idPrefix + 'loading" class="' + lightcase.settings.classPrefix + 'icon-spin"></div>'),
-						$case = $('<div id="' + lightcase.settings.idPrefix + 'case" aria-hidden="true" role="dialog"></div>')
+						$overlay = $('<div id="' + overbox.settings.idPrefix + 'overlay"></div>'),
+						$loading = $('<div id="' + overbox.settings.idPrefix + 'loading" class="' + overbox.settings.classPrefix + 'icon-spin"></div>'),
+						$case = $('<div id="' + overbox.settings.idPrefix + 'case" aria-hidden="true" role="dialog"></div>')
 					);
 					$case.after(
-						$nav = $('<div id="' + lightcase.settings.idPrefix + 'nav"></div>')
+						$nav = $('<div id="' + overbox.settings.idPrefix + 'nav"></div>')
 					);
 					$nav.append(
-						$close = $('<a href="#" class="' + lightcase.settings.classPrefix + 'icon-close"><span>' + lightcase.labels['close'] + '</span></a>'),
-						$prev = $('<a href="#" class="' + lightcase.settings.classPrefix + 'icon-prev"><span>' + lightcase.labels['navigator.prev'] + '</span></a>').hide(),
-						$next = $('<a href="#" class="' + lightcase.settings.classPrefix + 'icon-next"><span>' + lightcase.labels['navigator.next'] + '</span></a>').hide(),
-						$play = $('<a href="#" class="' + lightcase.settings.classPrefix + 'icon-play"><span>' + lightcase.labels['navigator.play'] + '</span></a>').hide(),
-						$pause = $('<a href="#" class="' + lightcase.settings.classPrefix + 'icon-pause"><span>' + lightcase.labels['navigator.pause'] + '</span></a>').hide()
+						$close = $('<a href="#" class="' + overbox.settings.classPrefix + 'icon-close"><span>' + overbox.labels['close'] + '</span></a>'),
+						$prev = $('<a href="#" class="' + overbox.settings.classPrefix + 'icon-prev"><span>' + overbox.labels['navigator.prev'] + '</span></a>').hide(),
+						$next = $('<a href="#" class="' + overbox.settings.classPrefix + 'icon-next"><span>' + overbox.labels['navigator.next'] + '</span></a>').hide(),
+						$play = $('<a href="#" class="' + overbox.settings.classPrefix + 'icon-play"><span>' + overbox.labels['navigator.play'] + '</span></a>').hide(),
+						$pause = $('<a href="#" class="' + overbox.settings.classPrefix + 'icon-pause"><span>' + overbox.labels['navigator.pause'] + '</span></a>').hide()
 					);
 					$case.append(
-						$content = $('<div class="' + lightcase.settings.classPrefix + 'content"></div>'),
-						$info = $('<div class="' + lightcase.settings.classPrefix + 'info"></div>')
+						$content = $('<div class="' + overbox.settings.classPrefix + 'content"></div>'),
+						$info = $('<div class="' + overbox.settings.classPrefix + 'info"></div>')
 					);
 					$content.append(
-						$contentInner = $('<div class="' + lightcase.settings.classPrefix + 'contentInner"></div>')
+						$contentInner = $('<div class="' + overbox.settings.classPrefix + 'contentInner"></div>')
 					);
 					$info.append(
-						$sequenceInfo = $('<div class="' + lightcase.settings.classPrefix + 'sequenceInfo"></div>'),
-						$title = $('<h4 class="' + lightcase.settings.classPrefix + 'title"></h4>'),
-						$caption = $('<p class="' + lightcase.settings.classPrefix + 'caption"></p>')
+						$sequenceInfo = $('<div class="' + overbox.settings.classPrefix + 'sequenceInfo"></div>'),
+						$title = $('<h4 class="' + overbox.settings.classPrefix + 'title"></h4>'),
+						$caption = $('<p class="' + overbox.settings.classPrefix + 'caption"></p>')
 					);
 				},
 				onInit : {},
@@ -158,17 +158,17 @@
 			}, options);
 
 			// Call onInit hook functions
-			lightcase.callHooks(lightcase.settings.onInit);
+			overbox.callHooks(overbox.settings.onInit);
 
-			lightcase.objectData = lightcase.getObjectData(this);
+			overbox.objectData = overbox.getObjectData(this);
 
-			lightcase.cacheScrollPosition();
-			lightcase.watchScrollInteraction();
+			overbox.cacheScrollPosition();
+			overbox.watchScrollInteraction();
 
-			lightcase.addElements();
-			lightcase.lightcaseOpen();
+			overbox.addElements();
+			overbox.overboxOpen();
 
-			lightcase.dimensions = lightcase.getDimensions();
+			overbox.dimensions = overbox.getDimensions();
 		},
 
 		/**
@@ -180,22 +180,22 @@
 		getObjectData : function ($object) {
 		 	var objectData = {
 				$link : $object,
-				title : lightcase.settings.title || $object.attr('title'),
-				caption : lightcase.settings.caption || $object.children('img').attr('alt'),
-				url : lightcase.verifyDataUrl(lightcase.settings.href || $object.attr('data-href') || $object.attr('href')),
-				requestType : lightcase.settings.ajax.type,
-				requestData : lightcase.settings.ajax.data,
-				requestDataType : lightcase.settings.ajax.dataType,
-				rel : $object.attr(lightcase.settings.attr),
-				type : lightcase.settings.type || lightcase.verifyDataType($object.attr('data-href') || $object.attr('href')),
-				isPartOfSequence : lightcase.isPartOfSequence($object.attr(lightcase.settings.attr), ':'),
-				isPartOfSequenceWithSlideshow : lightcase.isPartOfSequence($object.attr(lightcase.settings.attr), ':slideshow'),
-				currentIndex : $('[' + lightcase.settings.attr + '="' + $object.attr(lightcase.settings.attr) + '"]').index($object),
-				sequenceLength : $('[' + lightcase.settings.attr + '="' + $object.attr(lightcase.settings.attr) + '"]').length
+				title : overbox.settings.title || $object.attr('title'),
+				caption : overbox.settings.caption || $object.children('img').attr('alt'),
+				url : overbox.verifyDataUrl(overbox.settings.href || $object.attr('data-href') || $object.attr('href')),
+				requestType : overbox.settings.ajax.type,
+				requestData : overbox.settings.ajax.data,
+				requestDataType : overbox.settings.ajax.dataType,
+				rel : $object.attr(overbox.settings.attr),
+				type : overbox.settings.type || overbox.verifyDataType($object.attr('data-href') || $object.attr('href')),
+				isPartOfSequence : overbox.isPartOfSequence($object.attr(overbox.settings.attr), ':'),
+				isPartOfSequenceWithSlideshow : overbox.isPartOfSequence($object.attr(overbox.settings.attr), ':slideshow'),
+				currentIndex : $('[' + overbox.settings.attr + '="' + $object.attr(overbox.settings.attr) + '"]').index($object),
+				sequenceLength : $('[' + overbox.settings.attr + '="' + $object.attr(overbox.settings.attr) + '"]').length
 			};
 
 			// Add sequence info to objectData
-			objectData.sequenceInfo = (objectData.currentIndex + 1) + lightcase.labels['sequenceInfo.of'] + objectData.sequenceLength;
+			objectData.sequenceInfo = (objectData.currentIndex + 1) + overbox.labels['sequenceInfo.of'] + objectData.sequenceLength;
 
 			return objectData;
 		},
@@ -208,7 +208,7 @@
 		 * @return	{boolean}
 		 */
 		isPartOfSequence : function (rel, expression) {
-			var getSimilarLinks = $('[' + lightcase.settings.attr + '="' + rel + '"]'),
+			var getSimilarLinks = $('[' + overbox.settings.attr + '="' + rel + '"]'),
 				regexp = new RegExp(expression);
 
 			if (regexp.test(rel) && getSimilarLinks.length > 1) {
@@ -224,7 +224,7 @@
 		 * @return	{boolean}
 		 */
 		isSlideshowEnabled : function () {
-			if (lightcase.objectData.isPartOfSequence && (lightcase.settings.slideshow === true || lightcase.objectData.isPartOfSequenceWithSlideshow === true)) {
+			if (overbox.objectData.isPartOfSequence && (overbox.settings.slideshow === true || overbox.objectData.isPartOfSequenceWithSlideshow === true)) {
 				return true;
 			} else {
 				return false;
@@ -237,11 +237,11 @@
 		 * @return	{void}
 		 */
 		loadContent : function () {
-			if (lightcase.cache.originalObject) {
-				lightcase.restoreObject();
+			if (overbox.cache.originalObject) {
+				overbox.restoreObject();
 			}
 			
-			lightcase.createObject();
+			overbox.createObject();
 		},
 
 		/**
@@ -253,65 +253,65 @@
 			var $object;
 
 			// Create object
-			switch (lightcase.objectData.type) {
+			switch (overbox.objectData.type) {
 				case 'image' :
 					$object = $(new Image());
 					$object.attr({
 						// The time expression is required to prevent the binding of an image load
-						'src' : lightcase.objectData.url,
-						'alt' : lightcase.objectData.title
+						'src' : overbox.objectData.url,
+						'alt' : overbox.objectData.title
 					});
 					break;
 				case 'inline' :
-					$object = $('<div class="' + lightcase.settings.classPrefix + 'inlineWrap"></div>');
-					$object.html(lightcase.cloneObject($(lightcase.objectData.url)));
+					$object = $('<div class="' + overbox.settings.classPrefix + 'inlineWrap"></div>');
+					$object.html(overbox.cloneObject($(overbox.objectData.url)));
 
-					// Add custom attributes from lightcase.settings
-					$.each(lightcase.settings.inline, function (name, value) {
+					// Add custom attributes from overbox.settings
+					$.each(overbox.settings.inline, function (name, value) {
 						$object.attr('data-' + name, value);
 					});
 					break;
 				case 'ajax' :
-					$object = $('<div class="' + lightcase.settings.classPrefix + 'inlineWrap"></div>');
+					$object = $('<div class="' + overbox.settings.classPrefix + 'inlineWrap"></div>');
 
-					// Add custom attributes from lightcase.settings
-					$.each(lightcase.settings.ajax, function (name, value) {
+					// Add custom attributes from overbox.settings
+					$.each(overbox.settings.ajax, function (name, value) {
 						if (name !== 'data') {
 							$object.attr('data-' + name, value);
 						}
 					});
 					break;
 				case 'flash' :
-					$object = $('<embed src="' + lightcase.objectData.url + '" type="application/x-shockwave-flash"></embed>');
+					$object = $('<embed src="' + overbox.objectData.url + '" type="application/x-shockwave-flash"></embed>');
 
-					// Add custom attributes from lightcase.settings
-					$.each(lightcase.settings.flash, function (name, value) {
+					// Add custom attributes from overbox.settings
+					$.each(overbox.settings.flash, function (name, value) {
 						$object.attr(name, value);
 					});
 					break;
 				case 'video' :
 					$object = $('<video></video>');
-					$object.attr('src', lightcase.objectData.url);
+					$object.attr('src', overbox.objectData.url);
 
-					// Add custom attributes from lightcase.settings
-					$.each(lightcase.settings.video, function (name, value) {
+					// Add custom attributes from overbox.settings
+					$.each(overbox.settings.video, function (name, value) {
 						$object.attr(name, value);
 					});
 					break;
 				default :
 					$object = $('<iframe></iframe>');
 					$object.attr({
-						'src' : lightcase.objectData.url
+						'src' : overbox.objectData.url
 					});
 
-					// Add custom attributes from lightcase.settings
-					$.each(lightcase.settings.iframe, function (name, value) {
+					// Add custom attributes from overbox.settings
+					$.each(overbox.settings.iframe, function (name, value) {
 						$object.attr(name, value);
 					});
 			}
 
-			lightcase.addObject($object);
-			lightcase.loadObject($object);
+			overbox.addObject($object);
+			overbox.loadObject($object);
 		},
 
 		/**
@@ -325,32 +325,32 @@
 			$contentInner.html($object);
 
 			// Start loading
-			lightcase.loading('start');
+			overbox.loading('start');
 
 			// Call onStart hook functions
-			lightcase.callHooks(lightcase.settings.onStart);
+			overbox.callHooks(overbox.settings.onStart);
 			
 			// Call hook function on initialization
 
 			// Add sequenceInfo to the content holder or hide if its empty
-			if (lightcase.settings.showSequenceInfo === true && lightcase.objectData.isPartOfSequence) {
-				$sequenceInfo.html(lightcase.objectData.sequenceInfo);
+			if (overbox.settings.showSequenceInfo === true && overbox.objectData.isPartOfSequence) {
+				$sequenceInfo.html(overbox.objectData.sequenceInfo);
 				$sequenceInfo.show();
 			} else {
 				$sequenceInfo.empty();
 				$sequenceInfo.hide();
 			}
 			// Add title to the content holder or hide if its empty
-			if (lightcase.settings.showTitle === true && lightcase.objectData.title !== undefined && lightcase.objectData.title !== '') {
-				$title.html(lightcase.objectData.title);
+			if (overbox.settings.showTitle === true && overbox.objectData.title !== undefined && overbox.objectData.title !== '') {
+				$title.html(overbox.objectData.title);
 				$title.show();
 			} else {
 				$title.empty();
 				$title.hide();
 			}
 			// Add caption to the content holder or hide if its empty
-			if (lightcase.settings.showCaption === true && lightcase.objectData.caption !== undefined && lightcase.objectData.caption !== '') {
-				$caption.html(lightcase.objectData.caption);
+			if (overbox.settings.showCaption === true && overbox.objectData.caption !== undefined && overbox.objectData.caption !== '') {
+				$caption.html(overbox.objectData.caption);
 				$caption.show();
 			} else {
 				$caption.empty();
@@ -366,56 +366,56 @@
 		 */
 		loadObject : function ($object) {
 			// Load the object
-			switch (lightcase.objectData.type) {
+			switch (overbox.objectData.type) {
 				case 'inline' :
-					if ($(lightcase.objectData.url)) {
-						lightcase.showContent($object);
+					if ($(overbox.objectData.url)) {
+						overbox.showContent($object);
 					} else {
-						lightcase.error();
+						overbox.error();
 					}
 					break;
 				case 'ajax' :
 					$.ajax(
-						$.extend({}, lightcase.settings.ajax, {
-							url : lightcase.objectData.url,
-							type : lightcase.objectData.requestType,
-							dataType : lightcase.objectData.requestDataType,
-							data : lightcase.objectData.requestData,
+						$.extend({}, overbox.settings.ajax, {
+							url : overbox.objectData.url,
+							type : overbox.objectData.requestType,
+							dataType : overbox.objectData.requestDataType,
+							data : overbox.objectData.requestData,
 							success : function (data, textStatus, jqXHR) {
 								// Unserialize if data is transferred as json
-								if (lightcase.objectData.requestDataType === 'json') {
-									lightcase.objectData.data = data;
+								if (overbox.objectData.requestDataType === 'json') {
+									overbox.objectData.data = data;
 								} else {
 									$object.html(data);
 								}
-								lightcase.showContent($object);
+								overbox.showContent($object);
 							},
 							error : function (jqXHR, textStatus, errorThrown) {
-								lightcase.error();
+								overbox.error();
 							}
 						})
 					);
 					break;
 				case 'flash' :
-					lightcase.showContent($object);
+					overbox.showContent($object);
 					break;
 				case 'video' :
 					if (typeof($object.get(0).canPlayType) === 'function' || $case.find('video').length === 0) {
-						lightcase.showContent($object);
+						overbox.showContent($object);
 					} else {
-						lightcase.error();
+						overbox.error();
 					}
 					break;
 				default :
-					if (lightcase.objectData.url) {
+					if (overbox.objectData.url) {
 						$object.load(function () {
-							lightcase.showContent($object);
+							overbox.showContent($object);
 						});
 						$object.error(function () {
-							lightcase.error();
+							overbox.error();
 						});
 					} else {
-						lightcase.error();
+						overbox.error();
 					}
 			}
 		},
@@ -426,13 +426,13 @@
 		 * @return	{void}
 		 */
 		error : function () {
-			lightcase.objectData.type = 'error';
-			var $object = $('<div class="' + lightcase.settings.classPrefix + 'inlineWrap"></div>');
+			overbox.objectData.type = 'error';
+			var $object = $('<div class="' + overbox.settings.classPrefix + 'inlineWrap"></div>');
 
-			$object.html(lightcase.settings.errorMessage);
+			$object.html(overbox.settings.errorMessage);
 			$contentInner.html($object);
 
-			lightcase.showContent($contentInner);
+			overbox.showContent($contentInner);
 		},
 
 		/**
@@ -442,30 +442,30 @@
 		 * @return	{void}
 		 */
 		calculateDimensions : function ($object) {
-			lightcase.cleanupDimensions();
+			overbox.cleanupDimensions();
 			
 			// Set default dimensions
 			var dimensions = {
 				objectWidth : $object.attr('width') ? $object.attr('width') : $object.attr('data-width'), 
 				objectHeight : $object.attr('height') ? $object.attr('height') : $object.attr('data-height'),
-				maxWidth : parseInt(lightcase.dimensions.windowWidth * lightcase.settings.shrinkFactor),
-				maxHeight : parseInt(lightcase.dimensions.windowHeight * lightcase.settings.shrinkFactor)
+				maxWidth : parseInt(overbox.dimensions.windowWidth * overbox.settings.shrinkFactor),
+				maxHeight : parseInt(overbox.dimensions.windowHeight * overbox.settings.shrinkFactor)
 			};
 			
-			if (!lightcase.settings.disableShrink) {
+			if (!overbox.settings.disableShrink) {
 				// If the auto calculated maxWidth/maxHeight greather than the userdefined one, use that.
-				if (dimensions.maxWidth > lightcase.settings.maxWidth) {
-					dimensions.maxWidth = lightcase.settings.maxWidth;
+				if (dimensions.maxWidth > overbox.settings.maxWidth) {
+					dimensions.maxWidth = overbox.settings.maxWidth;
 				}
-				if (dimensions.maxHeight > lightcase.settings.maxHeight) {
-					dimensions.maxHeight = lightcase.settings.maxHeight;
+				if (dimensions.maxHeight > overbox.settings.maxHeight) {
+					dimensions.maxHeight = overbox.settings.maxHeight;
 				}
 
 				// Calculate the difference between screen width/height and image width/height
 				dimensions.differenceWidthAsPercent = parseInt(100 / dimensions.maxWidth * dimensions.objectWidth);
 				dimensions.differenceHeightAsPercent = parseInt(100 / dimensions.maxHeight * dimensions.objectHeight);
 				
-				switch (lightcase.objectData.type) {
+				switch (overbox.objectData.type) {
 					case 'image' :
 					case 'flash' :
 					case 'video' :
@@ -490,16 +490,16 @@
 
 						break;
 					default :
-						if ((isNaN(dimensions.objectWidth) || dimensions.objectWidth > dimensions.maxWidth) && !lightcase.settings.forceWidth) {
+						if ((isNaN(dimensions.objectWidth) || dimensions.objectWidth > dimensions.maxWidth) && !overbox.settings.forceWidth) {
 							dimensions.objectWidth = dimensions.maxWidth;
 						}
-						if (((isNaN(dimensions.objectHeight) && dimensions.objectHeight !== 'auto') || dimensions.objectHeight > dimensions.maxHeight) && !lightcase.settings.forceHeight) {
+						if (((isNaN(dimensions.objectHeight) && dimensions.objectHeight !== 'auto') || dimensions.objectHeight > dimensions.maxHeight) && !overbox.settings.forceHeight) {
 							dimensions.objectHeight = dimensions.maxHeight;
 						}
 				}
 			}
 
-			lightcase.adjustDimensions($object, dimensions);
+			overbox.adjustDimensions($object, dimensions);
 		},
 
 		/**
@@ -543,10 +543,10 @@
 		 */
 		loading : function (process) {
 			if (process === 'start') {
-				$case.addClass(lightcase.settings.classPrefix + 'loading');
+				$case.addClass(overbox.settings.classPrefix + 'loading');
 				$loading.show();
 			} else if (process === 'end') {
-				$case.removeClass(lightcase.settings.classPrefix + 'loading');
+				$case.removeClass(overbox.settings.classPrefix + 'loading');
 				$loading.hide();
 			}
 		},
@@ -589,8 +589,8 @@
 		 * @return	{string|boolean}	Array key if expression matched, else false
 		 */
 		verifyDataType : function (url) {
-			var url = lightcase.verifyDataUrl(url),
-				typeMapping = lightcase.settings.typeMapping;
+			var url = overbox.verifyDataUrl(url),
+				typeMapping = overbox.settings.typeMapping;
 
 			if (url) {
 				for (var key in typeMapping) {
@@ -625,7 +625,7 @@
 				return;
 			}
 
-			lightcase.settings.markup();
+			overbox.settings.markup();
 		},
 
 		/**
@@ -636,41 +636,41 @@
 		 */
 		showContent : function ($object) {
 			// Add data attribute with the object type
-			$case.attr('data-type', lightcase.objectData.type);
+			$case.attr('data-type', overbox.objectData.type);
 
-			lightcase.cache.object = $object;
-			lightcase.calculateDimensions($object);
+			overbox.cache.object = $object;
+			overbox.calculateDimensions($object);
 
 			// Call onFinish hook functions
-			lightcase.callHooks(lightcase.settings.onFinish);
+			overbox.callHooks(overbox.settings.onFinish);
 
-			switch (lightcase.settings.transitionIn) {
+			switch (overbox.settings.transitionIn) {
 				case 'scrollTop' :
 				case 'scrollRight' :
 				case 'scrollBottom' :
 				case 'scrollLeft' :
 				case 'scrollHorizontal' :
 				case 'scrollVertical' :
-					lightcase.transition.scroll($case, 'in', lightcase.settings.speedIn);
-					lightcase.transition.fade($contentInner, 'in', lightcase.settings.speedIn);
+					overbox.transition.scroll($case, 'in', overbox.settings.speedIn);
+					overbox.transition.fade($contentInner, 'in', overbox.settings.speedIn);
 					break;
 				case 'elastic' :
 					if ($case.css('opacity') < 1) {
-						lightcase.transition.zoom($case, 'in', lightcase.settings.speedIn);
-						lightcase.transition.fade($contentInner, 'in', lightcase.settings.speedIn);
+						overbox.transition.zoom($case, 'in', overbox.settings.speedIn);
+						overbox.transition.fade($contentInner, 'in', overbox.settings.speedIn);
 					}
 				case 'fade' :
 				case 'fadeInline' :
-					lightcase.transition.fade($case, 'in', lightcase.settings.speedIn);
-					lightcase.transition.fade($contentInner, 'in', lightcase.settings.speedIn);
+					overbox.transition.fade($case, 'in', overbox.settings.speedIn);
+					overbox.transition.fade($contentInner, 'in', overbox.settings.speedIn);
 					break;
 				default :
-					lightcase.transition.fade($case, 'in', 0);
+					overbox.transition.fade($case, 'in', 0);
 			}
 
 			// End loading
-			lightcase.loading('end');
-			lightcase.busy = false;
+			overbox.loading('end');
+			overbox.busy = false;
 		},
 
 		/**
@@ -679,9 +679,9 @@
 		 * @return	{void}
 		 */
 		processContent : function () {
-			lightcase.busy = true;
+			overbox.busy = true;
 			
-			switch (lightcase.settings.transitionOut) {
+			switch (overbox.settings.transitionOut) {
 				case 'scrollTop' :
 				case 'scrollRight' :
 				case 'scrollBottom' :
@@ -689,42 +689,42 @@
 				case 'scrollVertical' :
 				case 'scrollHorizontal' :
 					if ($case.is(':hidden')) {
-						lightcase.transition.fade($case, 'out', 0, 0, function () {
-							lightcase.loadContent();
+						overbox.transition.fade($case, 'out', 0, 0, function () {
+							overbox.loadContent();
 						});
-						lightcase.transition.fade($contentInner, 'out', 0);
+						overbox.transition.fade($contentInner, 'out', 0);
 					} else {
-						lightcase.transition.scroll($case, 'out', lightcase.settings.speedOut, function () {
-							lightcase.loadContent();
+						overbox.transition.scroll($case, 'out', overbox.settings.speedOut, function () {
+							overbox.loadContent();
 						});
 					}
 					break;
 				case 'fade' :
 					if ($case.is(':hidden')) {
-						lightcase.transition.fade($case, 'out', 0, 0, function () {
-							lightcase.loadContent();
+						overbox.transition.fade($case, 'out', 0, 0, function () {
+							overbox.loadContent();
 						});
 					} else {
-						lightcase.transition.fade($case, 'out', lightcase.settings.speedOut, 0, function () {
-							lightcase.loadContent();
+						overbox.transition.fade($case, 'out', overbox.settings.speedOut, 0, function () {
+							overbox.loadContent();
 						});
 					}
 					break;
 				case 'fadeInline' :
 				case 'elastic' :
 					if ($case.is(':hidden')) {
-						lightcase.transition.fade($case, 'out', 0, 0, function () {
-							lightcase.loadContent();
+						overbox.transition.fade($case, 'out', 0, 0, function () {
+							overbox.loadContent();
 						});
 					} else {
-						lightcase.transition.fade($contentInner, 'out', lightcase.settings.speedOut, 0, function () {
-							lightcase.loadContent();
+						overbox.transition.fade($contentInner, 'out', overbox.settings.speedOut, 0, function () {
+							overbox.loadContent();
 						});
 					}
 					break;
 				default :
-					lightcase.transition.fade($case, 'out', 0, 0, function () {
-						lightcase.loadContent();
+					overbox.transition.fade($case, 'out', 0, 0, function () {
+						overbox.loadContent();
 					});
 			}
 		},
@@ -735,54 +735,54 @@
 		 * @return	{void}
 		 */
 		handleEvents : function () {
-			lightcase.unbindEvents();
+			overbox.unbindEvents();
 
 			$nav.children().not($close).hide();
 
 			// If slideshow is enabled, show play/pause and start timeout.
-			if (lightcase.isSlideshowEnabled()) {
+			if (overbox.isSlideshowEnabled()) {
 				// Only start the timeout if slideshow is not pausing
-				if (!$nav.hasClass(lightcase.settings.classPrefix + 'paused')) {
-					lightcase.startTimeout();
+				if (!$nav.hasClass(overbox.settings.classPrefix + 'paused')) {
+					overbox.startTimeout();
 				} else {
-					lightcase.stopTimeout();
+					overbox.stopTimeout();
 				}
 			}
 
-			if (lightcase.settings.liveResize) {
-				lightcase.watchResizeInteraction();
+			if (overbox.settings.liveResize) {
+				overbox.watchResizeInteraction();
 			}
 
 			$close.click(function (event) {
 				event.preventDefault();
-				lightcase.lightcaseClose();
+				overbox.overboxClose();
 			});
 
-			if (lightcase.settings.closeOnOverlayClick === true) {
+			if (overbox.settings.closeOnOverlayClick === true) {
 				$overlay.css('cursor', 'pointer').click(function (event) {
 					event.preventDefault();
 					
-					lightcase.lightcaseClose();
+					overbox.overboxClose();
 				});
 			}
 
-			if (lightcase.settings.useKeys === true) {
-				lightcase.addKeyEvents();
+			if (overbox.settings.useKeys === true) {
+				overbox.addKeyEvents();
 			}
 
-			if (lightcase.objectData.isPartOfSequence) {
+			if (overbox.objectData.isPartOfSequence) {
 				$nav.attr('data-ispartofsequence', true);
-				lightcase.nav = lightcase.setNavigation();
+				overbox.nav = overbox.setNavigation();
 
 				$prev.click(function (event) {
 					event.preventDefault();
 
 					$prev.unbind('click');
-					lightcase.cache.action = 'prev';
-					lightcase.nav.$prevItem.click();
+					overbox.cache.action = 'prev';
+					overbox.nav.$prevItem.click();
 					
-					if (lightcase.isSlideshowEnabled()) {
-						lightcase.stopTimeout();
+					if (overbox.isSlideshowEnabled()) {
+						overbox.stopTimeout();
 					}
 				});
 
@@ -790,33 +790,33 @@
 					event.preventDefault();
 					
 					$next.unbind('click');
-					lightcase.cache.action = 'next';
-					lightcase.nav.$nextItem.click();
+					overbox.cache.action = 'next';
+					overbox.nav.$nextItem.click();
 					
-					if (lightcase.isSlideshowEnabled()) {
-						lightcase.stopTimeout();
+					if (overbox.isSlideshowEnabled()) {
+						overbox.stopTimeout();
 					}
 				});
 
-				if (lightcase.isSlideshowEnabled()) {
+				if (overbox.isSlideshowEnabled()) {
 					$play.click(function (event) {
 						event.preventDefault();
-						lightcase.startTimeout();
+						overbox.startTimeout();
 					});
 					$pause.click(function (event) {
 						event.preventDefault();
-						lightcase.stopTimeout();
+						overbox.stopTimeout();
 					});
 				}
 				
 				// Enable swiping if activated
-				if (lightcase.settings.swipe === true) {
+				if (overbox.settings.swipe === true) {
 					if ($.isPlainObject($.event.special.swipeleft)) {
 						$case.on('swipeleft', function (event) {
 							event.preventDefault();
 							$next.click();
-							if (lightcase.isSlideshowEnabled()) {
-								lightcase.stopTimeout();
+							if (overbox.isSlideshowEnabled()) {
+								overbox.stopTimeout();
 							}
 						});
 					}
@@ -824,8 +824,8 @@
 						$case.on('swiperight', function (event) {
 							event.preventDefault();
 							$prev.click();
-							if (lightcase.isSlideshowEnabled()) {
-								lightcase.stopTimeout();
+							if (overbox.isSlideshowEnabled()) {
+								overbox.stopTimeout();
 							}
 						});
 					}
@@ -839,9 +839,9 @@
 		 * @return	{void}
 		 */
 		addKeyEvents : function () {
-			$(document).bind('keyup.lightcase', function (event) {
-				// Do nothing if lightcase is in process
-				if (lightcase.busy) {
+			$(document).bind('keyup.overbox', function (event) {
+				// Do nothing if overbox is in process
+				if (overbox.busy) {
 					return;
 				}
 
@@ -852,13 +852,13 @@
 						break;
 					// Backward key
 					case 37 :
-						if (lightcase.objectData.isPartOfSequence) {
+						if (overbox.objectData.isPartOfSequence) {
 							$prev.click();
 						}
 						break;
 					// Forward key
 					case 39 :
-						if (lightcase.objectData.isPartOfSequence) {
+						if (overbox.objectData.isPartOfSequence) {
 							$next.click();
 						}
 						break;
@@ -875,12 +875,12 @@
 			$play.hide();
 			$pause.show();
 			
-			lightcase.cache.action = 'next';
-			$nav.removeClass(lightcase.settings.classPrefix + 'paused');
+			overbox.cache.action = 'next';
+			$nav.removeClass(overbox.settings.classPrefix + 'paused');
 
-			lightcase.timeout = setTimeout(function () {
-				lightcase.nav.$nextItem.click();
-			}, lightcase.settings.timeout);
+			overbox.timeout = setTimeout(function () {
+				overbox.nav.$nextItem.click();
+			}, overbox.settings.timeout);
 		},
 
 		/**
@@ -892,9 +892,9 @@
 			$play.show();
 			$pause.hide();
 
-			$nav.addClass(lightcase.settings.classPrefix + 'paused');
+			$nav.addClass(overbox.settings.classPrefix + 'paused');
 
-			clearTimeout(lightcase.timeout);
+			clearTimeout(overbox.timeout);
 		},
 
 		/**
@@ -903,11 +903,11 @@
 		 * @return	{object}	items
 		 */
 		setNavigation : function () {
-			var $links = $('[' + lightcase.settings.attr + '="' + lightcase.objectData.rel + '"]'),
-				currentIndex = lightcase.objectData.currentIndex,
+			var $links = $('[' + overbox.settings.attr + '="' + overbox.objectData.rel + '"]'),
+				currentIndex = overbox.objectData.currentIndex,
 				prevIndex = currentIndex - 1,
 				nextIndex = currentIndex + 1,
-				sequenceLength = lightcase.objectData.sequenceLength - 1,
+				sequenceLength = overbox.objectData.sequenceLength - 1,
 				items = {
 					$prevItem : $links.eq(prevIndex),
 					$nextItem : $links.eq(nextIndex)
@@ -924,7 +924,7 @@
 				items.$nextItem = $links.eq(0);
 			}
 
-			if (lightcase.settings.navigateEndless === true) {
+			if (overbox.settings.navigateEndless === true) {
 				$prev.show();
 				$next.show();
 			}
@@ -944,8 +944,8 @@
 
 			// If element is hidden, cache the object and remove
 			if ($object.is(':hidden')) {
-				lightcase.cacheObjectData($object);
-				$object.attr('id', lightcase.settings.idPrefix + 'temp-' + objectId).empty();
+				overbox.cacheObjectData($object);
+				$object.attr('id', overbox.settings.idPrefix + 'temp-' + objectId).empty();
 			} else {
 				// Prevent duplicated id's
 				$clone.removeAttr('id');
@@ -961,7 +961,7 @@
 		 */
 		isMobileDevice : function () {
 			var deviceAgent = navigator.userAgent.toLowerCase(),
-				agentId = deviceAgent.match(lightcase.settings.mobileMatchExpression);
+				agentId = deviceAgent.match(overbox.settings.mobileMatchExpression);
 
 			return agentId ? true : false;
 		},
@@ -984,7 +984,7 @@
 
 			for (var key in transitionMapping) {
 				if (transitionMapping.hasOwnProperty(key) && key in body.style) {
-					lightcase.support.transition = transitionMapping[key];
+					overbox.support.transition = transitionMapping[key];
 					isTransitionSupported = true;
 				}
 			}
@@ -1014,7 +1014,7 @@
 					endTransition = {},
 					endOpacity = opacity ? opacity : isInTransition ? 1 : 0;
 				
-				if (!lightcase.open && isInTransition) return;
+				if (!overbox.open && isInTransition) return;
 					
 				startTransition['opacity'] = startOpacity;
 				endTransition['opacity'] = endOpacity;
@@ -1022,16 +1022,16 @@
 				$object.css(startTransition).show();
 
 				// Css transition
-				if (lightcase.support.transitions) {
-					endTransition[lightcase.support.transition + 'transition'] = speed + 'ms ease';
+				if (overbox.support.transitions) {
+					endTransition[overbox.support.transition + 'transition'] = speed + 'ms ease';
 
 					setTimeout(function () {
 						$object.css(endTransition);
 
 						setTimeout(function () {
-							$object.css(lightcase.support.transition + 'transition', '');
+							$object.css(overbox.support.transition + 'transition', '');
 
-							if (callback && (lightcase.open || !isInTransition)) {
+							if (callback && (overbox.open || !isInTransition)) {
 								callback();
 							}
 						}, speed);
@@ -1054,7 +1054,7 @@
 			 */
 			scroll : function ($object, type, speed, callback) {
 				var isInTransition = type === 'in',
-					transition = isInTransition ? lightcase.settings.transitionIn : lightcase.settings.transitionOut,
+					transition = isInTransition ? overbox.settings.transitionIn : overbox.settings.transitionOut,
 					direction = 'left',
 					startTransition = {},
 					startOpacity = isInTransition ? 0 : 1,
@@ -1063,7 +1063,7 @@
 					endOpacity = isInTransition ? 1 : 0,
 					endOffset = isInTransition ? '50%' : '-50%';
 				
-				if (!lightcase.open && isInTransition) return;
+				if (!overbox.open && isInTransition) return;
 
 				switch (transition) {
 					case 'scrollTop' :
@@ -1089,7 +1089,7 @@
 						break;
 				}
 
-				if (lightcase.cache.action === 'prev') {
+				if (overbox.cache.action === 'prev') {
 					switch (transition) {
 						case 'scrollHorizontal' : 
 							startOffset = isInTransition ? '-50%' : '50%';
@@ -1111,16 +1111,16 @@
 				$object.css(startTransition).show();
 
 				// Css transition
-				if (lightcase.support.transitions) {
-					endTransition[lightcase.support.transition + 'transition'] = speed + 'ms ease';
+				if (overbox.support.transitions) {
+					endTransition[overbox.support.transition + 'transition'] = speed + 'ms ease';
 
 					setTimeout(function () {
 						$object.css(endTransition);
 
 						setTimeout(function () {
-							$object.css(lightcase.support.transition + 'transition', '');
+							$object.css(overbox.support.transition + 'transition', '');
 
-							if (callback && (lightcase.open || !isInTransition)) {
+							if (callback && (overbox.open || !isInTransition)) {
 								callback();
 							}
 						}, speed);
@@ -1150,28 +1150,28 @@
 					endOpacity = isInTransition ? 1 : 0,
 					endScale = isInTransition ? 'scale(1)' : 'scale(0.75)';
 
-				if (!lightcase.open && isInTransition) return;
+				if (!overbox.open && isInTransition) return;
 
 				startTransition['opacity'] = startOpacity;
-				startTransition[lightcase.support.transition + 'transform'] = startScale;
+				startTransition[overbox.support.transition + 'transform'] = startScale;
 
 				endTransition['opacity'] = endOpacity;
 					
 				$object.css(startTransition).show();
 
 				// Css transition
-				if (lightcase.support.transitions) {
-					endTransition[lightcase.support.transition + 'transform'] = endScale;
-					endTransition[lightcase.support.transition + 'transition'] = speed + 'ms ease';
+				if (overbox.support.transitions) {
+					endTransition[overbox.support.transition + 'transform'] = endScale;
+					endTransition[overbox.support.transition + 'transition'] = speed + 'ms ease';
 					
 					setTimeout(function () {
 						$object.css(endTransition);
 					
 						setTimeout(function () {
-							$object.css(lightcase.support.transition + 'transform', '');
-							$object.css(lightcase.support.transition + 'transition', '');
+							$object.css(overbox.support.transition + 'transform', '');
+							$object.css(overbox.support.transition + 'transition', '');
 							
-							if (callback && (lightcase.open || !isInTransition)) {
+							if (callback && (overbox.open || !isInTransition)) {
 								callback();
 							}
 						}, speed);
@@ -1212,7 +1212,7 @@
 				content : $object.html()
 			});
 
-			lightcase.cache.originalObject = $object;
+			overbox.cache.originalObject = $object;
 		},
 
 		/**
@@ -1221,10 +1221,10 @@
 		 * @return	void
 		 */
 		restoreObject : function () {
-			var $object = $('[id^="' + lightcase.settings.idPrefix + 'temp-"]');
+			var $object = $('[id^="' + overbox.settings.idPrefix + 'temp-"]');
 		
-			$object.attr('id', $.data(lightcase.cache.originalObject, 'cache').id);
-			$object.html($.data(lightcase.cache.originalObject, 'cache').content);
+			$object.attr('id', $.data(overbox.cache.originalObject, 'cache').id);
+			$object.html($.data(overbox.cache.originalObject, 'cache').content);
 		},
 
 		/**
@@ -1234,14 +1234,14 @@
 		 * @return	{void}
 		 */
 		resize : function () {
-			if (!lightcase.open) return;
+			if (!overbox.open) return;
 
-			if (lightcase.isSlideshowEnabled()) {
-				lightcase.stopTimeout();
+			if (overbox.isSlideshowEnabled()) {
+				overbox.stopTimeout();
 			}
 
-			lightcase.dimensions = lightcase.getDimensions();
-			lightcase.calculateDimensions(lightcase.cache.object);
+			overbox.dimensions = overbox.getDimensions();
+			overbox.calculateDimensions(overbox.cache.object);
 		},
 
 		/**
@@ -1257,13 +1257,13 @@
 					'left' :  $window.scrollLeft()
 				};
 
-			lightcase.cache.scrollPosition = lightcase.cache.scrollPosition || {};
+			overbox.cache.scrollPosition = overbox.cache.scrollPosition || {};
 
 			if ($document.width() > $window.width()) {
-				lightcase.cache.scrollPosition.left = offset.left;
+				overbox.cache.scrollPosition.left = offset.left;
 			}
 			if ($document.height() > $window.height()) {
-				lightcase.cache.scrollPosition.top = offset.top;
+				overbox.cache.scrollPosition.top = offset.top;
 			}
 		},
 
@@ -1273,16 +1273,16 @@
 		 * @return	{void}
 		 */
 		watchResizeInteraction : function () {
-			$(window).resize(lightcase.resize);
+			$(window).resize(overbox.resize);
 		},
 		
 		/**
-		 * Stop watching any resize interaction related to lightcase.
+		 * Stop watching any resize interaction related to overbox.
 		 *
 		 * @return	{void}
 		 */
 		unwatchResizeInteraction : function () {
-			$(window).off('resize', lightcase.resize);
+			$(window).off('resize', overbox.resize);
 		},
 
 		/**
@@ -1291,28 +1291,28 @@
 		 * @return	{void}
 		 */
 		watchScrollInteraction : function () {
-			$(window).scroll(lightcase.cacheScrollPosition);
+			$(window).scroll(overbox.cacheScrollPosition);
 		},
 
 		/**
-		 * Stop watching any scroll interaction related to lightcase.
+		 * Stop watching any scroll interaction related to overbox.
 		 *
 		 * @return	{void}
 		 */
 		unwatchScrollInteraction : function () {
-			$(window).off('scroll', lightcase.cacheScrollPosition);
+			$(window).off('scroll', overbox.cacheScrollPosition);
 		},
 		
 		/**
 		 * Restores to the original scoll position before
-		 * lightcase got initialized.
+		 * overbox got initialized.
 		 *
 		 * @return	{void}
 		 */
 		restoreScrollPosition : function () {
 			$(window)
-				.scrollTop(parseInt(lightcase.cache.scrollPosition.top))
-				.scrollLeft(parseInt(lightcase.cache.scrollPosition.left))
+				.scrollTop(parseInt(overbox.cache.scrollPosition.top))
+				.scrollLeft(parseInt(overbox.cache.scrollPosition.left))
 				.resize();
 		},
 
@@ -1322,38 +1322,38 @@
 		 * @return	{void}
 		 */
 		switchToFullScreenMode : function () {
-			lightcase.settings.shrinkFactor = 1;
-			lightcase.settings.overlayOpacity = 1;
+			overbox.settings.shrinkFactor = 1;
+			overbox.settings.overlayOpacity = 1;
 
-			$('html').addClass(lightcase.settings.classPrefix + 'fullScreenMode');
+			$('html').addClass(overbox.settings.classPrefix + 'fullScreenMode');
 		},
 
 		/**
-		 * Enters into the lightcase view
+		 * Enters into the overbox view
 		 *
 		 * @return	{void}
 		 */
-		lightcaseOpen : function () {
-			lightcase.open = true;
+		overboxOpen : function () {
+			overbox.open = true;
 
-			lightcase.support.transitions = lightcase.settings.cssTransitions ? lightcase.isTransitionSupported() : false;
-			lightcase.support.mobileDevice = lightcase.isMobileDevice();
+			overbox.support.transitions = overbox.settings.cssTransitions ? overbox.isTransitionSupported() : false;
+			overbox.support.mobileDevice = overbox.isMobileDevice();
 
-			if (lightcase.support.mobileDevice) {
-				$('html').addClass(lightcase.settings.classPrefix + 'isMobileDevice');
+			if (overbox.support.mobileDevice) {
+				$('html').addClass(overbox.settings.classPrefix + 'isMobileDevice');
 
-				if (lightcase.settings.fullScreenModeForMobile) {
-					lightcase.switchToFullScreenMode();
+				if (overbox.settings.fullScreenModeForMobile) {
+					overbox.switchToFullScreenMode();
 				}
 			}
-			if (!lightcase.settings.transitionIn) {
-				lightcase.settings.transitionIn = lightcase.settings.transition;
+			if (!overbox.settings.transitionIn) {
+				overbox.settings.transitionIn = overbox.settings.transition;
 			}
-			if (!lightcase.settings.transitionOut) {
-				lightcase.settings.transitionOut = lightcase.settings.transition;
+			if (!overbox.settings.transitionOut) {
+				overbox.settings.transitionOut = overbox.settings.transition;
 			}
 
-			switch (lightcase.settings.transitionIn) {
+			switch (overbox.settings.transitionIn) {
 				case 'fade' :
 				case 'fadeInline' :
 				case 'elastic' :
@@ -1369,55 +1369,55 @@
 						$case.css('opacity', 0);
 						$contentInner.css('opacity', 0);
 					}
-					lightcase.transition.fade($overlay, 'in', lightcase.settings.speedIn, lightcase.settings.overlayOpacity, function () {
-						lightcase.transition.fade($close, 'in', lightcase.settings.speedIn);
-						lightcase.handleEvents();
-						lightcase.processContent();
+					overbox.transition.fade($overlay, 'in', overbox.settings.speedIn, overbox.settings.overlayOpacity, function () {
+						overbox.transition.fade($close, 'in', overbox.settings.speedIn);
+						overbox.handleEvents();
+						overbox.processContent();
 					});
 					break;
 				default :
-					lightcase.transition.fade($overlay, 'in', 0, lightcase.settings.overlayOpacity, function () {
-						lightcase.transition.fade($close, 'in', 0);
-						lightcase.handleEvents();
-						lightcase.processContent();
+					overbox.transition.fade($overlay, 'in', 0, overbox.settings.overlayOpacity, function () {
+						overbox.transition.fade($close, 'in', 0);
+						overbox.handleEvents();
+						overbox.processContent();
 					});
 			}
 
-			$('html').addClass(lightcase.settings.classPrefix + 'open');
+			$('html').addClass(overbox.settings.classPrefix + 'open');
 			$case.attr('aria-hidden', 'false');
 		},
 
 		/**
-		 * Escapes from the lightcase view
+		 * Escapes from the overbox view
 		 *
 		 * @return	{void}
 		 */
-		lightcaseClose : function () {
-			lightcase.open = false;
+		overboxClose : function () {
+			overbox.open = false;
 
-			if (lightcase.isSlideshowEnabled()) {
-				lightcase.stopTimeout();
-				$nav.removeClass(lightcase.settings.classPrefix + 'paused');
+			if (overbox.isSlideshowEnabled()) {
+				overbox.stopTimeout();
+				$nav.removeClass(overbox.settings.classPrefix + 'paused');
 			}
 
 			$loading.hide();
 
-			lightcase.unbindEvents();
+			overbox.unbindEvents();
 
-			lightcase.unwatchResizeInteraction();
-			lightcase.unwatchScrollInteraction();
+			overbox.unwatchResizeInteraction();
+			overbox.unwatchScrollInteraction();
 
-			$('html').removeClass(lightcase.settings.classPrefix + 'open');
+			$('html').removeClass(overbox.settings.classPrefix + 'open');
 			$case.attr('aria-hidden', 'true');
 
 			$nav.children().hide();
 
-			lightcase.restoreScrollPosition();
+			overbox.restoreScrollPosition();
 			
 			// Call onClose hook functions
-			lightcase.callHooks(lightcase.settings.onClose);
+			overbox.callHooks(overbox.settings.onClose);
 
-			switch (lightcase.settings.transitionOut) {
+			switch (overbox.settings.transitionOut) {
 				case 'fade' :
 				case 'fadeInline' :
 				case 'scrollTop' :
@@ -1426,21 +1426,21 @@
 				case 'scrollLeft' :
 				case 'scrollHorizontal' :
 				case 'scrollVertical' :
-					lightcase.transition.fade($case, 'out', lightcase.settings.speedOut, 0, function () {
-						lightcase.transition.fade($overlay, 'out', lightcase.settings.speedOut, 0, function () {
-							lightcase.cleanup();
+					overbox.transition.fade($case, 'out', overbox.settings.speedOut, 0, function () {
+						overbox.transition.fade($overlay, 'out', overbox.settings.speedOut, 0, function () {
+							overbox.cleanup();
 						});
 					});
 					break;
 				case 'elastic' :
-					lightcase.transition.zoom($case, 'out', lightcase.settings.speedOut, function () {
-						lightcase.transition.fade($overlay, 'out', lightcase.settings.speedOut, 0, function () {
-							lightcase.cleanup();
+					overbox.transition.zoom($case, 'out', overbox.settings.speedOut, function () {
+						overbox.transition.fade($overlay, 'out', overbox.settings.speedOut, 0, function () {
+							overbox.cleanup();
 						});
 					});
 					break;
 				default :
-					lightcase.cleanup();
+					overbox.cleanup();
 			}
 		},
 
@@ -1454,7 +1454,7 @@
 			$overlay.unbind('click');
 
 			// Unbind key events
-			$(document).unbind('keyup.lightcase');
+			$(document).unbind('keyup.overbox');
 
 			// Unbind swipe events
 			$case.unbind('swipeleft').unbind('swiperight');
@@ -1488,12 +1488,12 @@
 		},
 
 		/**
-		 * Cleanup after aborting lightcase
+		 * Cleanup after aborting overbox
 		 *
 		 * @return	{void}
 		 */
 		cleanup : function () {
-			lightcase.cleanupDimensions();
+			overbox.cleanupDimensions();
 
 			$loading.hide();
 			$overlay.hide();
@@ -1506,26 +1506,26 @@
 			$contentInner.empty().hide();
 			$info.children().empty();
 
-			if (lightcase.cache.originalObject) {
-				lightcase.restoreObject();
+			if (overbox.cache.originalObject) {
+				overbox.restoreObject();
 			}
 
 			// Call onCleanup hook functions
-			lightcase.callHooks(lightcase.settings.onCleanup);
+			overbox.callHooks(overbox.settings.onCleanup);
 			
 			// Restore cache
-			lightcase.cache = {};
+			overbox.cache = {};
 		}
 	};
 
-	$.fn.lightcase = function (method) {
+	$.fn.overbox = function (method) {
 		// Method calling logic
-		if (lightcase[method]) {
-			return lightcase[method].apply(this, Array.prototype.slice.call(arguments, 1));
+		if (overbox[method]) {
+			return overbox[method].apply(this, Array.prototype.slice.call(arguments, 1));
 		} else if (typeof method === 'object' || !method) {
-			return lightcase.init.apply(this, arguments);
+			return overbox.init.apply(this, arguments);
 		} else {
-			$.error('Method ' + method + ' does not exist on jQuery.lightcase');
+			$.error('Method ' + method + ' does not exist on jQuery.overbox');
 		}
 	};
 })(jQuery);

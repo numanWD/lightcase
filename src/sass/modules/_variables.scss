@@ -1,0 +1,23 @@
+//Not modified
+
+$overbox-default: (
+        'breakpoint' : em(640),
+        'image-path' : '../images/overbox/',
+
+        'overlay-background' : #333,
+        'mobile-navigation-background' : rgba(0,0,0,0.3),
+
+        'title-color' : #fff,
+        'caption-color' : #fff,
+        'sequence-info-color' : #fff,
+
+        'title-font-size': 1.3em,
+        'caption-font-size': 1em,
+        'sequence-info-font-size': 1em,
+
+        'icon-size' : 1.4em
+);
+
+$overbox-custom : ()!default;
+
+$overbox-vars : map-merge($overbox-default, $overbox-custom);
