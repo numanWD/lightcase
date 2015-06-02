@@ -1,1 +1,3 @@
-bower_component
+bower_components
+.sass-cache
+
