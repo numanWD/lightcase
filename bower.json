@@ -1,5 +1,6 @@
 {
   "name": "overbox",
+  "version": "0.1"
   "description": "Clean and easy-integrated lightbox plugin",
   "keywords": [
     "jquery-plugin",
