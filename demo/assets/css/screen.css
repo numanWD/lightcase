@@ -1,0 +1,369 @@
+/* Animation for loading spin icon */
+@-webkit-keyframes lightcase-loading-spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(359deg); } }
+@-moz-keyframes lightcase-loading-spin {
+  0% {
+    -moz-transform: rotate(0deg); }
+  100% {
+    -moz-transform: rotate(359deg); } }
+@keyframes lightcase-loading-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    transform: rotate(359deg); } }
+@media screen {
+  .overbox-open body {
+    padding: 55px 0 70px 0;
+    overflow-y: hidden; } }
+  @media screen and (min-width: 40em) {
+    .overbox-open body {
+      padding: 0; } }
+@media screen and (max-width: 40em) {
+  .overbox-open body > *:not([id*=overbox-]) {
+    position: fixed !important;
+    top: -9999px !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important; } }
+
+@media screen {
+  /* Overlay */
+  #overbox-overlay {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background: #333; }
+
+  /* Loading */
+  #overbox-loading {
+    position: fixed;
+    z-index: 1001;
+    top: 50%;
+    left: 50%;
+    color: #aaa;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+    opacity: 1;
+    font-size: 32px;
+    background-image: url("../../../src/images/overbox/loading.svg");
+    /* Fixes the icon wobble issue in firefox */
+    -moz-transform-origin: 50% 53%;
+    -webkit-animation: overbox-loading-spin 0.5s infinite linear;
+    -moz-animation: overbox-loading-spin 0.5s infinite linear;
+    animation: overbox-loading-spin 0.5s infinite linear; } }
+  @media screen and (min-width: 40em) {
+    #overbox-loading {
+      color: #fff;
+      text-shadow: 0 0 15px #fff; } }
+
+@media screen {
+  /* Case */
+  #overbox-case {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    top: 50%;
+    left: 50%;
+    font-family: arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: left;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); } }
+  @media screen and (max-width: 40em) {
+    #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]), #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner, #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-inlineWrap {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none;
+      background: none; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case:not([data-type=error]) .overbox-content {
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      text-shadow: none;
+      background-color: #fff;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      -webkit-backface-visibility: hidden; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case[data-type=image] .overbox-content, #overbox-case[data-type=video] .overbox-content {
+      background-color: #333; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case[data-type=image] .overbox-contentInner, #overbox-case[data-type=video] .overbox-contentInner {
+      line-height: 0.75; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case:not([data-type=error]) .overbox-inlineWrap {
+      padding: 30px;
+      overflow: auto;
+      box-sizing: border-box; } }
+
+@media screen {
+ /*
+* Content - Extend with further selectors and colors in case you
+* have elements like <ul>, <li>, <span> or similar displayed in overbox.
+*/
+  #overbox-case .overbox-content h1,
+  #overbox-case .overbox-content h2,
+  #overbox-case .overbox-content h3,
+  #overbox-case .overbox-content h4,
+  #overbox-case .overbox-content h5,
+  #overbox-case .overbox-content h6,
+  #overbox-case .overbox-content p {
+    color: #aaa; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case .overbox-content h1,
+    #overbox-case .overbox-content h2,
+    #overbox-case .overbox-content h3,
+    #overbox-case .overbox-content h4,
+    #overbox-case .overbox-content h5,
+    #overbox-case .overbox-content h6,
+    #overbox-case .overbox-content p {
+      color: #333; } }
+
+@media screen {
+  /* Additional info */
+  #overbox-case .overbox-info {
+    /*
+     * You can change to position "static" or "relative" instead, but consider
+     * that this height will be integrated and calculated
+     * to the maximum height additionally to the image height.
+     */
+    position: absolute;
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 15px; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case .overbox-info {
+      padding-right: 0;
+      padding-left: 0; } }
+
+@media screen {
+  #overbox-case .overbox-title,
+  #overbox-case .overbox-caption {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    font-weight: normal;
+    text-overflow: ellipsis; }
+
+  #overbox-case .overbox-title {
+    font-size: 1.3em;
+    color: #fff; }
+
+  #overbox-case .overbox-caption {
+    font-size: 1em;
+    color: #fff;
+    clear: both; }
+
+  #overbox-case .overbox-sequenceInfo {
+    font-size: 1em;
+    color: #fff; }
+
+  #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-info {
+    position: static; }
+
+  #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-content {
+    padding: 15px;
+    border: none;
+    background: none;
+    box-shadow: none; } }
+@media screen and (max-width: 40em) {
+  #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner,
+  #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner > * {
+    width: 100% !important;
+    max-width: none !important; } }
+
+@media screen {
+  /*
+   * Set auto height to each element except iframes, because of that
+   * those cannot have a natural/native height and it must be especially defined.
+   */ }
+@media screen and (max-width: 40em) {
+  #overbox-case:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner > *:not(iframe) {
+    height: auto !important;
+    max-height: none !important; } }
+
+@media screen {
+  /* Navigation */ }
+@media screen and (max-width: 40em) {
+  .overbox-open #overbox-nav[data-ispartofsequence]:before {
+    content: '';
+    position: fixed;
+    z-index: 9998;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 55px;
+    background: rgba(0, 0, 0, 0.3); } }
+
+@media screen {
+  #overbox-nav a {
+    position: fixed;
+    z-index: 9999;
+    bottom: 15px;
+    outline: none;
+    cursor: pointer;
+    font-size: 24px;
+    background-size: contain;
+    background-repeat: no-repeat; } }
+  @media screen and (min-width: 40em) {
+    #overbox-nav a {
+      bottom: 50%;
+      margin-bottom: -0.5em;
+      outline: none;
+      cursor: pointer; } }
+@media screen {
+  #overbox-nav a:hover {
+    text-shadow: 0 0 15px #fff; }
+
+  /* Icons */
+  [class*='overbox-icon-'] {
+    width: 1.4em;
+    height: 1.4em; }
+
+  a[class*='overbox-icon-'],
+  a[class*='overbox-icon-']:focus {
+    position: fixed;
+    z-index: 9999;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: color, opacity, ease-in-out 0.25s;
+    -moz-transition: color, opacity, ease-in-out 0.25s;
+    transition: color, opacity, ease-in-out 0.25s; }
+
+  a[class*='overbox-icon-']:hover {
+    color: white; }
+
+  a[class*='overbox-icon-'] > span {
+    display: inline-block;
+    text-indent: -9999px; }
+
+  #overbox-nav .overbox-icon-close {
+    position: absolute;
+    z-index: 9997;
+    top: 15px;
+    right: 15px;
+    opacity: 0;
+    background-image: url("../../../src/images/overbox/close.svg"); } }
+  @media screen and (min-width: 40em) {
+    #overbox-nav .overbox-icon-close {
+      margin: 0;
+      position: fixed;
+      z-index: 9997;
+      top: 15px;
+      right: 15px;
+      outline: none; } }
+
+@media screen {
+  #overbox-nav .overbox-icon-pause,
+  #overbox-nav .overbox-icon-play {
+    left: 50%;
+    margin-left: -0.5em; } }
+  @media screen and (min-width: 40em) {
+    #overbox-nav .overbox-icon-pause,
+    #overbox-nav .overbox-icon-play {
+      opacity: 0;
+      left: 50%;
+      margin-left: -0.5em; } }
+
+@media screen {
+  #overbox-nav .overbox-icon-pause {
+    background-image: url("../../../src/images/overbox/pause.svg"); }
+
+  #overbox-nav .overbox-icon-play {
+    background-image: url("../../../src/images/overbox/play.svg"); }
+
+  #overbox-nav .overbox-icon-prev {
+    left: 15px;
+    background-image: url("../../../src/images/overbox/prev.svg"); }
+
+  #overbox-nav .overbox-icon-next {
+    right: 15px;
+    background-image: url("../../../src/images/overbox/next.svg"); } }
+@media screen and (min-width: 40em) {
+  #overbox-nav a:hover,
+  #overbox-case:hover ~ #overbox-nav a {
+    opacity: 1; } }
+
+@media screen {
+  /* For mobile (touch) devices */
+  .overbox-isMobileDevice #overbox-case .overbox-inlineWrap,
+  .overbox-isMobileDevice #overbox-case[data-type=iframe] .overbox-contentInner {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; }
+
+  .overbox-isMobileDevice.overbox-open,
+  .overbox-isMobileDevice.overbox-open body {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden; }
+
+  .overbox-isMobileDevice #overbox-nav a:hover {
+    color: #aaa;
+    text-shadow: none; }
+
+  /* Error message */
+  #overbox-case p.overbox-error {
+    padding: 30px 0;
+    font-size: 17px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #aaa; } }
+  @media screen and (min-width: 40em) {
+    #overbox-case p.overbox-error {
+      margin: 0;
+      padding: 0;
+      font-size: 17px;
+      color: #aaa; } }
+
+body {
+  color: #333; }
+
+img {
+  max-width: 100%; }
+
+a {
+  width: 33%;
+  float: left;
+  display: block;
+  padding: 0 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+hr {
+  margin: 30px 20px 50px;
+  border: none;
+  border-bottom: 1px solid #ddd; }
+
+.showcase-list::after {
+  clear: both;
+  content: "";
+  display: table; }
+
+.alt {
+  color: #7E9651; }
+
+/*# sourceMappingURL=screen.css.map */

@@ -48,7 +48,7 @@
     opacity: 1;
     font-size: 32px;
 
-    background-image: url('#{map-get($overbox-vars , 'image-path')}loading.svg');
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}loading.svg');
 
     /* Fixes the icon wobble issue in firefox */
     -moz-transform-origin: 50% 53%;
@@ -305,7 +305,7 @@
     right: 15px;
 
     opacity: 0;
-    background-image: url('#{map-get($overbox-vars , 'image-path')}close.svg');
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}close.svg');
 
     @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
       margin: 0;
@@ -331,18 +331,18 @@
     }
   }
   #overbox-nav .overbox-icon-pause {
-    background-image: url('#{map-get($overbox-vars , 'image-path')}pause.svg')
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}pause.svg')
   }
   #overbox-nav .overbox-icon-play {
-    background-image: url('#{map-get($overbox-vars , 'image-path')}play.svg');
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}play.svg');
   }
   #overbox-nav .overbox-icon-prev {
     left: 15px;
-    background-image: url('#{map-get($overbox-vars , 'image-path')}prev.svg');
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}prev.svg');
   }
   #overbox-nav .overbox-icon-next {
     right: 15px;
-    background-image: url('#{map-get($overbox-vars , 'image-path')}next.svg');
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}next.svg');
   }
   #overbox-nav a:hover,
   #overbox-case:hover ~ #overbox-nav a {

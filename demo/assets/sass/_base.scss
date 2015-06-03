@@ -1,0 +1,28 @@
+body {
+    color: #333;
+}
+img {
+    max-width: 100%;
+}
+
+a {
+    width: 33%;
+    float: left;
+    display: block;
+    padding: 0 5px;
+    @include box-sizing(border-box);
+}
+
+hr {
+    margin: 30px 20px 50px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.showcase-list {
+    @include clearfix();
+}
+
+.alt {
+    color: #7E9651;
+}
