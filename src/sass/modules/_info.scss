@@ -1,0 +1,71 @@
+/* Additional info */
+
+#overbox-case {
+    & .overbox-info {
+        /*
+         * You can change to position "static" or "relative" instead, but consider
+         * that this height will be integrated and calculated
+         * to the maximum height additionally to the image height.
+         */
+        position: absolute;
+        padding-top: 15px;
+        @include padding(null 15px);
+
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            @include padding(null 0);
+        }
+    }
+
+    & .overbox-title,
+    & .overbox-caption {
+        margin: 0;
+        padding: 0;
+
+        line-height: 1.5;
+        font-weight: normal;
+        text-overflow: ellipsis;
+    }
+    & .overbox-title {
+        font-size: map-get($overbox-vars, 'title-font-size');
+        color: map-get($overbox-vars, 'title-color');
+    }
+
+    & .overbox-caption {
+        font-size: map-get($overbox-vars, 'caption-font-size');
+        color: map-get($overbox-vars, 'caption-color');
+        clear: both;
+    }
+
+    & .overbox-sequenceInfo {
+        font-size: map-get($overbox-vars, 'sequence-info-font-size');
+        color: map-get($overbox-vars, 'sequence-info-color');
+    }
+
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-info {
+        position: static;
+    }
+
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-content {
+        border: none;
+        background: none;
+        box-shadow: none;
+    }
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner,
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner > * {
+        @media (max-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            width: 100% !important;
+            max-width: none !important;
+        }
+    }
+
+    /*
+     * Set auto height to each element except iframes, because of that
+     * those cannot have a natural/native height and it must be especially defined.
+     */
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner > *:not(iframe) {
+        @media (max-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            height: auto !important;
+            max-height: none !important;
+        }
+    }
+}

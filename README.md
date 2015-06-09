@@ -27,7 +27,7 @@ $overbox-default: (
  
 ```
  
-To personalice your plugin you must define your map and load the library.
+To personalize your plugin you must define your map and load the library.
 
 
 ```sass

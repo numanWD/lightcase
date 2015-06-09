@@ -1,0 +1,73 @@
+/* Case */
+#overbox-case {
+    display: none;
+
+    position: fixed;
+    z-index: 1002;
+    top: 50%;
+    left: 50%;
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5;
+    text-align: left;
+
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]),
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]) .overbox-contentInner,
+    &:not([data-type=image]):not([data-type=video]):not([data-type=flash]):not([data-type=error]):not([data-type=inline]) .overbox-inlineWrap {
+
+        @media (max-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            position: relative !important;
+
+            top: auto !important;
+            left: auto !important;
+
+            width: auto !important;
+            height: auto !important;
+
+            margin: 0 !important;
+            padding: 0 !important;
+
+            border: none;
+            background: none;
+        }
+    }
+
+    &:not([data-type=error]) .overbox-content {
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+
+            text-shadow: none;
+            background-color: #fff;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+
+            -webkit-backface-visibility: hidden;
+        }
+    }
+    &[data-type=image] .overbox-content,
+    &[data-type=video] .overbox-content {
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            background-color: #333;
+        }
+    }
+    &[data-type=image] .overbox-contentInner,
+    &[data-type=video] .overbox-contentInner {
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            line-height: 0.75;
+        }
+    }
+    &:not([data-type=error]) .overbox-inlineWrap {
+        background: map-get($overbox-vars, 'case-background');
+        padding: 15px;
+        box-sizing: border-box;
+
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            padding: 30px;
+            overflow: auto;
+        }
+    }
+}
+

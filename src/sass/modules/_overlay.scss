@@ -1,0 +1,57 @@
+/* Overlay */
+.overbox-open {
+    & body {
+        padding: 55px 0 70px 0;
+        overflow-y: hidden;
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            padding: 0;
+        }
+    }
+    & body > *:not([id*=overbox-]) {
+        @media (max-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            position: fixed !important;
+            top: -9999px !important;
+
+            width: 0 !important;
+            height: 0 !important;
+
+            overflow: hidden !important;
+        }
+    }
+}
+
+
+#overbox-overlay {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background: map-get($overbox-vars , 'overlay-background');
+}
+
+/* Loading */
+#overbox-loading {
+    position: fixed;
+    z-index: 1001;
+    top: 50%;
+    left: 50%;
+    color: #aaa;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+    opacity: 1;
+    font-size: 32px;
+
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}loading.svg');
+
+    /* Fixes the icon wobble issue in firefox */
+    -moz-transform-origin: 50% 53%;
+    @include animation(overbox-loading-spin 0.5s infinite linear);
+
+    @media (min-width: #{map-get($overbox-vars , 'breakpoint')}){
+        color: #fff;
+        text-shadow: 0 0 15px #fff;
+    }
+}

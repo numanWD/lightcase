@@ -1,0 +1,39 @@
+/* Navigation */
+.overbox-open #overbox-nav[data-ispartofsequence]:before {
+    @media (max-width: #{map-get($overbox-vars , 'breakpoint')}) {
+        content: '';
+        position: fixed;
+        z-index: 9998;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 55px;
+
+        background: map-get($overbox-vars, 'mobile-navigation-background');
+    }
+}
+
+#overbox-nav {
+    & a {
+        position: fixed;
+        z-index: 9999;
+        bottom: 15px;
+
+        outline: none;
+        cursor: pointer;
+        font-size: 24px;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            bottom: 50%;
+            margin-bottom: -0.5em;
+
+            outline: none;
+            cursor: pointer;
+        }
+    }
+    & a:hover {
+        text-shadow: 0 0 15px #fff;
+    }
+}

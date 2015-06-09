@@ -1,0 +1,23 @@
+
+/*
+* Content - Extend with further selectors and colors in case you
+* have elements like <ul>, <li>, <span> or similar displayed in overbox.
+*/
+
+#overbox-case .overbox-content {
+    h1, h2, h3, h4, h5, h6, p {
+        color: #aaa;
+        @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+            color: #333;
+        }
+    }
+    & .overbox-inlineWrap {
+        text-shadow: none;
+
+        h1, h2, h3, h4, h5, h6, p {
+            color: inherit;
+        }
+    }
+}
+
+

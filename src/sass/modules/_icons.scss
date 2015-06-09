@@ -1,0 +1,81 @@
+/* Icons */
+[class*='overbox-icon-'] {
+    width: map-get($overbox-vars, 'icon-size');
+    height: map-get($overbox-vars, 'icon-size');
+}
+
+a[class*='overbox-icon-'],
+a[class*='overbox-icon-']:focus {
+    position: fixed;
+    z-index: 9999;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+    @include transition(color, opacity, ease-in-out 0.25s);
+}
+
+a[class*='overbox-icon-']:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+a[class*='overbox-icon-'] > span {
+    display: inline-block;
+    text-indent: -9999px;
+}
+
+#overbox-nav .overbox-icon-close {
+    position: absolute;
+    z-index: 9997;
+    top: 15px;
+    right: 15px;
+
+    opacity: 0;
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}close.svg');
+
+    @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+        margin: 0;
+        position: fixed;
+        z-index: 9997;
+
+        top: 15px;
+        right: 15px;
+
+        outline: none;
+    }
+}
+
+#overbox-nav .overbox-icon-pause,
+#overbox-nav .overbox-icon-play {
+    left: 50%;
+    margin-left: -0.5em;
+
+    @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+        opacity: 0;
+        left: 50%;
+        margin-left: -0.5em;
+    }
+}
+
+#overbox-nav .overbox-icon-pause {
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}pause.svg')
+}
+
+#overbox-nav .overbox-icon-play {
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}play.svg');
+}
+
+#overbox-nav .overbox-icon-prev {
+    left: 15px;
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}prev.svg');
+}
+
+#overbox-nav .overbox-icon-next {
+    right: 15px;
+    background-image: url('#{map-get($overbox-vars , 'icons-path')}next.svg');
+}
+
+#overbox-nav a:hover,
+#overbox-case:hover ~ #overbox-nav a {
+    @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
+        opacity: 1;
+    }
+}
