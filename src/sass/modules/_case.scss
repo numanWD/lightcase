@@ -60,13 +60,16 @@
         }
     }
     &:not([data-type=error]) .overbox-inlineWrap {
-        background: map-get($overbox-vars, 'case-background');
         padding: 15px;
         box-sizing: border-box;
 
         @media (min-width: #{map-get($overbox-vars , 'breakpoint')}) {
             padding: 30px;
             overflow: auto;
+        }
+
+        > * {
+            background: map-get($overbox-vars, 'case-background');
         }
     }
 }
