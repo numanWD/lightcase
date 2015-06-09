@@ -22,6 +22,7 @@ $overbox-default: (
      'title-font-size': 1.3em,
      'caption-font-size': 1em,
      'sequence-info-font-size': 1em,
+     'case-background': #fff,
      'icon-size' : 1.4em
 );
  
