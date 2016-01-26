@@ -60,6 +60,8 @@
         }
     }
     &:not([data-type=error]) .overbox-inlineWrap {
+        // TODO: check if moving the bg from this element's children to itself creates any problem
+        background: map-get($overbox-vars, 'case-background');
         padding: 15px;
         box-sizing: border-box;
 
@@ -68,9 +70,6 @@
             overflow: auto;
         }
 
-        > * {
-            background: map-get($overbox-vars, 'case-background');
-        }
     }
 }
 
